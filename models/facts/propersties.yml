@@ -177,7 +177,7 @@ models:
         tests:
           - not_null
       - name: RETURN_FLAG
-        description: "{{ docs('return_flag') }}"
+        description: "{{ doc('return_flag') }}"
         tests:
           - accepted_values:
               values: ['R', 'N', 'A']
