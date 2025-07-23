@@ -1,0 +1,15 @@
+{{ config(materialized='table') }}
+
+SELECT
+    MD5(CAST(S.S_SUPPKEY AS STRING)) AS SUPPLIER_SK,  -- Surrogate key
+    S.S_SUPPKEY AS SUPPLIER_NK,                       -- Natural key
+    S.S_NAME AS SUPPLIER_NAME,
+    S.S_ADDRESS AS SUPPLIER_ADDRESS,
+    N.N_NAME AS NATION,
+    R.R_NAME AS REGION,
+    S.S_PHONE AS SUPPLIER_PHONE,
+    S.S_ACCTBAL AS ACCOUNT_BALANCE,
+    S.S_COMMENT AS SUPPLIER_COMMENT
+FROM {{ source('tpch_sf1', 'SUPPLIER') }} S
+LEFT JOIN {{ source('tpch_sf1', 'NATION') }} N ON S.S_NATIONKEY = N.N_NATIONKEY
+LEFT JOIN {{ source('tpch_sf1', 'REGION') }} R ON N.N_REGIONKEY = R.R_REGIONKEY
