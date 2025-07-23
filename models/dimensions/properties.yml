@@ -1,0 +1,153 @@
+version: 2
+
+models:
+  - name: customer_dim
+    description: "Dimension table for customer information, derived from the TPC-H CUSTOMER, NATION, and REGION tables."
+    columns:
+      - name: CUSTOMER_SK
+        description: "Surrogate Key for the customer dimension. Generated using MD5 hash of C_CUSTKEY."
+        tests:
+          - unique
+          - not_null
+      - name: CUSTOMER_NK
+        description: "Natural Key for the customer, corresponding to C_CUSTKEY from the source."
+        tests:
+          - unique
+          - not_null
+      - name: C_NAME
+        description: "Customer's name."
+        tests:
+          - not_null
+      - name: C_ADDRESS
+        description: "Customer's address."
+      - name: C_PHONE
+        description: "Customer's phone number."
+      - name: C_ACCTBAL
+        description: "Customer's account balance."
+      - name: C_MKTSEGMENT
+        description: "Customer's market segment."
+      - name: C_COMMENT
+        description: "Customer's comment."
+      - name: NATION_NAME
+        description: "Name of the nation the customer belongs to."
+        tests:
+          - not_null
+      - name: REGION_NAME
+        description: "Name of the region the customer's nation belongs to."
+        tests:
+          - not_null
+
+  - name: date_dim
+    description: "Dimension table for dates, derived from various date columns across ORDERS and LINEITEM tables."
+    columns:
+      - name: DATE_KEY
+        description: "Primary key for the date dimension, representing a specific date."
+        tests:
+          - unique
+          - not_null
+      - name: CALENDAR_YEAR
+        description: "Year of the DATE_KEY."
+        tests:
+          - not_null
+      - name: MONTH_OF_YEAR
+        description: "Month number of the DATE_KEY (1-12)."
+        tests:
+          - not_null
+      - name: DAY_OF_MONTH
+        description: "Day number of the month for the DATE_KEY (1-31)."
+        tests:
+          - not_null
+      - name: DAY_OF_WEEK
+        description: "Day number of the week for the DATE_KEY (e.g., 1 for Sunday, 7 for Saturday)."
+        tests:
+          - not_null
+      - name: WEEK_OF_YEAR
+        description: "Week number of the year for the DATE_KEY (1-53)."
+        tests:
+          - not_null
+      - name: CALENDAR_QUARTER
+        description: "Quarter of the year for the DATE_KEY (1-4)."
+        tests:
+          - not_null
+      - name: MONTH_START_DATE
+        description: "The first day of the month for the DATE_KEY."
+        tests:
+          - not_null
+
+  - name: part_dim
+    description: "Dimension table for part information, derived from the TPC-H PART table."
+    columns:
+      - name: PART_SK
+        description: "Surrogate Key for the part dimension. Generated using MD5 hash of P_PARTKEY."
+        tests:
+          - unique
+          - not_null
+      - name: PART_NK
+        description: "Natural Key for the part, corresponding to P_PARTKEY from the source."
+        tests:
+          - unique
+          - not_null
+      - name: PART_NAME
+        description: "Name of the part."
+        tests:
+          - not_null
+      - name: MANUFACTURER
+        description: "Manufacturer of the part."
+        tests:
+          - not_null
+      - name: BRAND
+        description: "Brand of the part."
+        tests:
+          - not_null
+      - name: PART_TYPE
+        description: "Type of the part."
+        tests:
+          - not_null
+      - name: PART_SIZE
+        description: "Size of the part."
+        tests:
+          - not_null
+      - name: CONTAINER
+        description: "Container type for the part."
+        tests:
+          - not_null
+      - name: RETAIL_PRICE
+        description: "Retail price of the part."
+        tests:
+          - not_null
+      - name: PART_COMMENT
+        description: "Comment about the part."
+
+  - name: supplier_dim
+    description: "Dimension table for supplier information, derived from the TPC-H SUPPLIER, NATION, and REGION tables."
+    columns:
+      - name: SUPPLIER_SK
+        description: "Surrogate Key for the supplier dimension. Generated using MD5 hash of S_SUPPKEY."
+        tests:
+          - unique
+          - not_null
+      - name: SUPPLIER_NK
+        description: "Natural Key for the supplier, corresponding to S_SUPPKEY from the source."
+        tests:
+          - unique
+          - not_null
+      - name: SUPPLIER_NAME
+        description: "Supplier's name."
+        tests:
+          - not_null
+      - name: SUPPLIER_ADDRESS
+        description: "Supplier's address."
+      - name: NATION
+        description: "Name of the nation the supplier belongs to."
+        tests:
+          - not_null
+      - name: REGION
+        description: "Name of the region the supplier's nation belongs to."
+        tests:
+          - not_null
+      - name: SUPPLIER_PHONE
+        description: "Supplier's phone number."
+      - name: ACCOUNT_BALANCE
+        description: "Supplier's account balance."
+      - name: SUPPLIER_COMMENT
+        description: "Supplier's comment."
