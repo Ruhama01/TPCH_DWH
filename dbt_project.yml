@@ -35,3 +35,6 @@ models:
     facts:
       +materialized: table
       +schema: facts
+    dimensions:
+      +materialized: table
+      +schema: facts
