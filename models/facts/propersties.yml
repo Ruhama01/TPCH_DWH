@@ -96,6 +96,7 @@ models:
         tests:
           - unique
           - not_null
+        data_type: VARCHAR
       - name: PART_SK
         description: "Foreign Key to the part_dim table. -1 indicates an unknown part."
         tests:
@@ -176,10 +177,10 @@ models:
         tests:
           - not_null
       - name: RETURN_FLAG
-        description: "Flag indicating if the line item was returned (e.g., 'R' for returned, 'N' for not returned)."
+        description: "{{ docs('return_flag') }}"
         tests:
           - accepted_values:
-              values: ['R', 'N']
+              values: ['R', 'N', 'A']
       - name: LINE_STATUS
         description: "Current status of the line item."
       - name: SHIP_MODE

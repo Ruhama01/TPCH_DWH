@@ -12,5 +12,5 @@ SELECT
     R_NAME AS REGION_NAME
 FROM {{ source('tpch_sf1', 'CUSTOMER') }} AS c
 JOIN {{ source('tpch_sf1', 'NATION') }} AS n ON c.C_NATIONKEY = n.N_NATIONKEY 
-JOIN {{ source('tpch_sf1', 'REGION') }} AS r ON n.N_REGIONKEY = r.R_REGIONKEY;
+JOIN {{ source('tpch_sf1', 'REGION') }} AS r ON n.N_REGIONKEY = r.R_REGIONKEY
 
