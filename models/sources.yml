@@ -1,16 +1,71 @@
 version: 2
 
 sources:
-   - name: tpch_sf1
-     description: "This is the source table for the data"
-     database: SNOWFLAKE_SAMPLE_DATA 
-     schema: TPCH_SF1 
-     tables:
-       - name: CUSTOMER
-       - name: LINEITEM
-       - name: NATION
-       - name: ORDERS
-       - name: PART
-       - name: PARTSUPP
-       - name: REGION
-       - name: SUPPLIER
+  - name: tpch_sf1
+    description: "TPC-H SF1 benchmark data from Snowflake sample database."
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
+    tables:
+      - name: CUSTOMER
+        description: "Customer master data, including demographics and market segments."
+        tests:
+          - unique:
+              column_name: C_CUSTKEY
+          - not_null:
+              column_name: C_CUSTKEY
+
+      - name: LINEITEM
+        description: "Detailed line items for each order including quantities, prices, and shipment info."
+        tests:
+          - not_null:
+              column_name: L_ORDERKEY
+          - not_null:
+              column_name: L_LINENUMBER
+
+      - name: NATION
+        description: "List of nations used to classify customers and suppliers."
+        tests:
+          - unique:
+              column_name: N_NATIONKEY
+          - not_null:
+              column_name: N_NAME
+
+      - name: ORDERS
+        description: "Customer orders with order dates, priorities, and statuses."
+        tests:
+          - unique:
+              column_name: O_ORDERKEY
+          - not_null:
+              column_name: O_CUSTKEY
+
+      - name: PART
+        description: "Parts or products available for sale with descriptions and retail prices."
+        tests:
+          - unique:
+              column_name: P_PARTKEY
+          - not_null:
+              column_name: P_NAME
+
+      - name: PARTSUPP
+        description: "Relationship between parts and suppliers, including supply costs and availability."
+        tests:
+          - not_null:
+              column_name: PS_PARTKEY
+          - not_null:
+              column_name: PS_SUPPKEY
+
+      - name: REGION
+        description: "Regions grouping nations for geographic analysis."
+        tests:
+          - unique:
+              column_name: R_REGIONKEY
+          - not_null:
+              column_name: R_NAME
+
+      - name: SUPPLIER
+        description: "Suppliers providing parts, with location and contact information."
+        tests:
+          - unique:
+              column_name: S_SUPPKEY
+          - not_null:
+              column_name: S_NAME
